@@ -1,0 +1,55 @@
+Bootstrap: docker
+From: continuumio/miniconda3:latest
+Stage: condabuild
+
+%files
+samtools.yml /samtools.yml
+
+%post
+/opt/conda/bin/conda install mamba -c conda-forge && \
+/opt/conda/bin/mamba env create -f /samtools.yml #&& \
+
+Bootstrap: docker
+From: centos:7
+Stage: final
+
+%files from condabuild
+/opt/conda/envs/samtools /opt/conda/envs/samtools
+
+%environment
+export PATH=/opt/conda/envs/samtools/bin:$PATH
+export JAVA_HOME=/opt/conda/envs/samtools
+
+%post
+yum update -y
+yum groupinstall -y @"Development Tools"
+yum install -y epel-release centos-release-scl
+yum update -y
+yum install -y git curl wget which python27 nano htop bc tar bzip2 gzip lz4 lzma libcurl-devel libxml2-devel libgit2-devel openssl-devel R-3.6.0
+R -e 'install.packages("devtools", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("seqinr", version = "4.2-5", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("stringr", version = "1.4.0", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("ggplot2", version = "3.3.3", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("reshape", version = "0.8.8", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("tidyr", version = "1.1.4", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("optparse", version = "1.6.6", repos="https://cloud.r-project.org")'
+git clone "https://github.com/lindenb/jvarkit.git"
+cd jvarkit/
+./gradlew biostar84452
+cp dist/biostar84452.jar /opt/conda/envs/samtools/bin/
+cd /opt/
+rm -rf jvarkit
+
+%help
+    SUMMARY
+    Container with tools necessary for the variant-calling nextflow pipeline seqmet.
+    KNOWN BUGS
+    None
+    USAGE
+    Called by the variant-calling nextflow pipeline seqmet.
+
+%labels
+    Version 1.13
+    Singularity Version 3.7.0
+    Author sib0.smb
+    Date 2021-10-21

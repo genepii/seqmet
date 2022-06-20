@@ -1,0 +1,5 @@
+# Ignore these files
+bbmap
+bowtie2
+sra
+sra/human_filter.db

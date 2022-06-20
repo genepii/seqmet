@@ -1,0 +1,21 @@
+name: samtools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - perl=5.22.0.1
+  - python=3.8.8
+  - python-isal=0.10.0
+  - biopython=1.78
+  - libxcb=1.14
+  - matplotlib=3.4.1
+  - pandas=1.2.4
+  - numpy=1.20.2
+  - scipy=1.6.2
+  - pyvcf=0.6.8
+  - pyyaml=5.4.1
+  - htslib=1.13
+  - samtools=1.13
+  - bcftools=1.13
+  

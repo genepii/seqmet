@@ -1,0 +1,33 @@
+name: srahumanscrubber
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - abra2
+  - bamtools
+  - bbmap
+  - bc
+  - bcftools
+  - bedtools
+  - biopython
+  - bwa
+  - bzip2
+  - curl
+  - cutadapt
+  - htslib
+  - mafft
+  - minimap2
+  - multiqc
+  - parallel
+  - perl
+  - pigz
+  - pip
+  - python
+  - samtools
+  - scipy
+  - sed
+  - seqkit
+  - seqtk
+  - vsearch
+  - procps-ng

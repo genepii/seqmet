@@ -1,0 +1,66 @@
+Bootstrap: docker
+From: continuumio/miniconda3:latest
+Stage: condabuild
+
+%files
+varcall.yml /varcall.yml
+
+%post
+/opt/conda/bin/conda install mamba -c conda-forge && \
+/opt/conda/bin/mamba env create -f /varcall.yml #&& \
+
+Bootstrap: docker
+From: centos:7
+Stage: final
+
+%files from condabuild
+/opt/conda/envs/varcall /opt/conda/envs/varcall
+
+%environment
+export PATH=/opt/sra-human-scrubber/scripts/:/opt/conda/envs/varcall/bin:$PATH
+export JAVA_HOME=/opt/conda/envs/varcall
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:/opt/conda/envs/varcall/lib:/.singularity/libs
+
+%post
+yum update -y
+yum groupinstall -y @"Development Tools"
+yum install -y epel-release centos-release-scl
+yum update -y
+yum install -y git curl wget which python27 nano htop bc tar bzip2 gzip lz4 lzma libcurl-devel libxml2-devel libgit2-devel openssl-devel gcc R-3.6.0
+R -e 'install.packages("devtools", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("seqinr", version = "4.2-5", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("stringr", version = "1.4.0", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("ggplot2", version = "3.3.3", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("reshape", version = "0.8.8", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("tidyr", version = "1.1.4", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("optparse", version = "1.6.6", repos="https://cloud.r-project.org")'
+R -e 'library(devtools); install_version("reshape2", version = "1.4.4", repos="https://cloud.r-project.org")'
+export PATH=/opt/conda/envs/varcall/bin:$PATH
+cp /opt/conda/envs/varcall/share/abra2-*/abra2.jar /opt/conda/envs/varcall/bin/
+cp /opt/conda/envs/varcall/share/picard-*/picard.jar /opt/conda/envs/varcall/bin/
+cd /opt/
+git clone "https://github.com/ncbi/sra-human-scrubber"
+cd sra-human-scrubber/
+git reset --hard 9d0d4b2e708a2f2feb7f03ec778f7cf5aa98ab4c
+cd /opt/
+git clone "https://github.com/lindenb/jvarkit.git"
+cd jvarkit/
+git reset --hard d29b24f2b39a2a46f7d056f5e7605eff8389b5e9
+./gradlew biostar84452
+cp dist/biostar84452.jar /opt/conda/envs/varcall/bin/
+cd /opt/
+rm -rf jvarkit
+
+%help
+    SUMMARY
+    Container with tools necessary for the variant-calling nextflow pipeline seqmet.
+    KNOWN BUGS
+    None
+    USAGE
+    Called by the variant-calling nextflow pipeline seqmet.
+
+%labels
+    Version 0.0.6
+    Singularity Version 3.7.0
+    Author sib0.smb
+    Date 2022-06-14

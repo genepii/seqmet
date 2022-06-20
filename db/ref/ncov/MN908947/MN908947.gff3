@@ -1,0 +1,11 @@
+MN908947|WG	Genbank	CDS	266	13468	.	+	0	ID=cds-QHD43415.1;Parent=gene-orf1ab;Dbxref=NCBI_GP:QHD43415.1;Name=QHD43415.1;Note=translated by -1 ribosomal frameshift;exception=ribosomal slippage;gbkey=CDS;gene=orf1ab1;product=orf1ab polyprotein;protein_id=QHD43415.1
+MN908947|WG	Genbank	CDS	13468	21555	.	+	0	ID=cds-QHD43415.1;Parent=gene-orf1ab;Dbxref=NCBI_GP:QHD43415.1;Name=QHD43415.1;Note=translated by -1 ribosomal frameshift;exception=ribosomal slippage;gbkey=CDS;gene=orf1ab2;product=orf1ab polyprotein;protein_id=QHD43415.1
+MN908947|WG	Genbank	CDS	21563	25384	.	+	0	ID=cds-QHD43416.1;Parent=gene-S;Dbxref=NCBI_GP:QHD43416.1;Name=QHD43416.1;Note=structural protein;gbkey=CDS;gene=S;product=surface glycoprotein;protein_id=QHD43416.1
+MN908947|WG	Genbank	CDS	25393	26220	.	+	0	ID=cds-QHD43417.1;Parent=gene-ORF3a;Dbxref=NCBI_GP:QHD43417.1;Name=QHD43417.1;gbkey=CDS;gene=ORF3a;product=ORF3a protein;protein_id=QHD43417.1
+MN908947|WG	Genbank	CDS	26245	26472	.	+	0	ID=cds-QHD43418.1;Parent=gene-E;Dbxref=NCBI_GP:QHD43418.1;Name=QHD43418.1;Note=structural protein%3B E protein;gbkey=CDS;gene=E;product=envelope protein;protein_id=QHD43418.1
+MN908947|WG	Genbank	CDS	26523	27191	.	+	0	ID=cds-QHD43419.1;Parent=gene-M;Dbxref=NCBI_GP:QHD43419.1;Name=QHD43419.1;Note=structural protein;gbkey=CDS;gene=M;product=membrane glycoprotein;protein_id=QHD43419.1
+MN908947|WG	Genbank	CDS	27202	27387	.	+	0	ID=cds-QHD43420.1;Parent=gene-ORF6;Dbxref=NCBI_GP:QHD43420.1;Name=QHD43420.1;gbkey=CDS;gene=ORF6;product=ORF6 protein;protein_id=QHD43420.1
+MN908947|WG	Genbank	CDS	27394	27759	.	+	0	ID=cds-QHD43421.1;Parent=gene-ORF7a;Dbxref=NCBI_GP:QHD43421.1;Name=QHD43421.1;gbkey=CDS;gene=ORF7a;product=ORF7a protein;protein_id=QHD43421.1
+MN908947|WG	Genbank	CDS	27894	28259	.	+	0	ID=cds-QHD43422.1;Parent=gene-ORF8;Dbxref=NCBI_GP:QHD43422.1;Name=QHD43422.1;gbkey=CDS;gene=ORF8;product=ORF8 protein;protein_id=QHD43422.1
+MN908947|WG	Genbank	CDS	28274	29533	.	+	0	ID=cds-QHD43423.2;Parent=gene-N;Dbxref=NCBI_GP:QHD43423.2;Name=QHD43423.2;Note=structural protein;gbkey=CDS;gene=N;product=nucleocapsid phosphoprotein;protein_id=QHD43423.2
+MN908947|WG	Genbank	CDS	29558	29674	.	+	0	ID=cds-QHI42199.1;Parent=gene-ORF10;Dbxref=NCBI_GP:QHI42199.1;Name=QHI42199.1;gbkey=CDS;gene=ORF10;product=ORF10 protein;protein_id=QHI42199.1

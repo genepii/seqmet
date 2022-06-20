@@ -1,0 +1,5 @@
+# Ignore everything in this directory
+*
+# Except these files
+!.gitignore
+!000000_seqmet_varcall_ncov.tsv

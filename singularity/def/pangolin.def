@@ -1,0 +1,27 @@
+Bootstrap: docker
+From: continuumio/miniconda3:latest
+
+%files
+pangolin.yml /pangolin.yml
+
+%post
+/opt/conda/bin/conda install mamba -c conda-forge
+/opt/conda/bin/mamba env create -f /pangolin.yml
+. activate pangolin
+cd /opt/
+git clone https://github.com/cov-lineages/pangolin
+cd pangolin
+git reset --hard 26fdaf68dfbe8761cc9f2fe51af5a125730a4351
+/opt/conda/envs/pangolin/bin/python -m pip install .
+cd /opt/
+conda deactivate
+
+%environment
+export PATH=/opt/conda/envs/pangolin/bin:$PATH
+export JAVA_HOME=/opt/conda/envs/pangolin
+
+%labels
+    Version 3.1.20
+    Singularity Version 3.6.1+21-g0441c656a-dirty
+    Author sib0.smb
+    Date 2021-12-19

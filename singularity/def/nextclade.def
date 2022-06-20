@@ -1,0 +1,16 @@
+Bootstrap: docker
+From: nextstrain/nextclade:1.10.2
+
+%help
+    SUMMARY
+    Singularity container made from the official Docker container.
+    KNOWN BUGS
+    None
+    USAGE
+    Viral genome clade assignment, mutation calling, and sequence quality checks.
+
+%labels
+    Version 1.10.2
+    Singularity Version 3.6.1+21-g0441c656a-dirty
+    Author sib0.smb
+    Date 2022-01-07

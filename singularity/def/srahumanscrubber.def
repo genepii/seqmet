@@ -1,0 +1,42 @@
+Bootstrap: docker
+From: continuumio/miniconda3:latest
+Stage: condabuild
+
+%files
+srahumanscrubber.yml /srahumanscrubber.yml
+
+%post
+/opt/conda/bin/conda install mamba -c conda-forge && \
+/opt/conda/bin/mamba env create -f /srahumanscrubber.yml #&& \
+
+Bootstrap: docker
+From: ncbi/sra-human-scrubber:latest
+Stage: final
+
+%files from condabuild
+/opt/conda/envs/srahumanscrubber /opt/conda/envs/srahumanscrubber
+
+%environment
+export PATH=/opt/conda/envs/srahumanscrubber/bin:$PATH
+export JAVA_HOME=/opt/conda/envs/srahumanscrubber
+
+%post
+apt --allow-releaseinfo-change update -y
+apt upgrade -y
+apt install -y git curl wget nano htop bc tar bzip2 gzip procps g++
+export PATH=/opt/conda/envs/srahumanscrubber/bin:$PATH
+cd /opt/
+
+%help
+    SUMMARY
+    SRA Human Scrubber.
+    KNOWN BUGS
+    None
+    USAGE
+    Filter human reads for SRA submission.
+
+%labels
+    Version 1.1.2021-05-05
+    Singularity Version 3.7.0
+    Author sib0.smb
+    Date 2022-06-19

@@ -1,0 +1,233 @@
+{
+"version" : "",
+
+"fastq" : [
+    "/path/to/seqmet/data/test1_R1.fastq.gz",
+    "/path/to/seqmet/data/test1_R2.fastq.gz",
+    "/path/to/seqmet/data/test2_R1.fastq.gz",
+    "/path/to/seqmet/data/test2_R2.fastq.gz",
+    "/path/to/seqmet/data/test3_R1.fastq.gz",
+    "/path/to/seqmet/data/test3_R2.fastq.gz"
+],
+
+"tmp" : "/path/to/seqmet/tmp/",
+"metadata" : "/path/to/seqmet/metadata/000000_seqmet_varcall_ncov.tsv",
+"result" : "/path/to/seqmet/result/000000_seqmet_varcall_ncov/",
+"sequencer" : "",
+"proto" : "",
+"workflow" : "varcall",
+"filter" : true,
+"downsample" : true,
+"trim" : true,
+"premap" : "minimap2",
+"map" : "minimap2",
+"rmdup" : true,
+"realign" : true,
+"clipbam" : "ampliconclip",
+
+"filter_sra" : {
+    "todo" : 1,
+    "db" : "/path/to/seqmet/db/sra/human_filter.db"
+    },
+
+"downsample_seqtk" : {
+    "todo" : 1,
+    "reads" : 1000000
+    },
+
+"trim_cutadapt" : {
+    "todo" : 1,
+    "minimum_length" : 30,
+    "error_rate" : 0,
+    "quality" : 20,
+    "overlap" : 3,
+    "adapter_f" : ["CTGTCTCTTATA"], 
+    "adapter_r" : ["CTGTCTCTTATA"], 
+    "front_f" : [],
+    "front_r" : [],
+    "anywhere_f" : [],
+    "anywhere_r" : []
+    },
+
+"premap_minimap2" : {
+    "todo" : 1,
+    "ref" : [
+        "/path/to/seqmet/db/ref/ncov/MN908947/MN908947.fna"
+    ],
+    "posc" : [
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM000286.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM001009905.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM001357943.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM006428.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM007059.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM021823.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM022493.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM032940.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM080476.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM152792.fna",
+        "/path/to/seqmet/db/ref/ncov/MN908947/posc/NM197956.fna"
+    ],
+    "frag" : "yes",
+    "F" : 2000,
+    "k" : 21,
+    "w" : 11,
+    "A" : 2,
+    "B" : 8,
+    "O" : "12,32",
+    "E" : "2,1",
+    "r" : 100,
+    "p" : ".5",
+    "N" : 5,
+    "f" : "1000,5000",
+    "n" : 3,
+    "m" : 40,
+    "s" : 40,
+    "g" : 1000,
+    "heap-sort" : "yes",
+    "secondary" : "yes",
+    "end-bonus" : 5,
+    "min_depth" : 10
+    },
+
+"map_minimap2" : {
+    "todo" : 1,
+    "ref" : [
+        "/path/to/seqmet/db/ref/ncov/MN908947/MN908947.fna"
+    ],
+    "frag" : "yes",
+    "F" : 2000,
+    "k" : 21,
+    "w" : 11,
+    "A" : 2,
+    "B" : 8,
+    "O" : "12,32",
+    "E" : "2,1",
+    "r" : 100,
+    "p" : ".5",
+    "N" : 5,
+    "f" : "1000,5000",
+    "n" : 3,
+    "m" : 40,
+    "s" : 40,
+    "g" : 1000,
+    "heap-sort" : "yes",
+    "secondary" : "no",
+    "end-bonus" : 5,
+    "max_match" : 99,
+    "min_cov" : 0.00
+    },
+
+"postmap_picard" : {
+    "todo" : 1
+    },
+
+"postmap_abra2" : {
+    "todo" : 1,
+    "args" : "--sa --cons --no-edge-ci",
+    "amq" : 30,
+    "ca" : "10,1",
+    "mac" : 64,
+    "mad" : 1000,
+    "mapq" : 1,
+    "maxn" : 150000,
+    "mbq" : 20,
+    "mcl" : -1,
+    "mcr" : 1000000,
+    "mer" : 0.01,
+    "mmr" : 0.05,
+    "mnf" : 1,
+    "mrn" : 0.1,
+    "mrr" : 1000000,
+    "msr" : 1000000,
+    "rcf" : 0.05
+    },
+
+"postmap_ampliconclip" : {
+    "todo" : 1,
+    "ampliconclip_bed" : [
+        "/path/to/seqmet/db/ref/ncov/MN908947/artic_v4.1/MN908947_primer.bed"
+    ],
+    "filter_len" : 30,
+    "tolerance" : 0
+    },
+
+"callvar_freebayes" : {
+    "todo" : 1,
+    "theta" : 0.001,
+    "ploidy" : 1,
+    "use-best-n-alleles" : 2,
+    "haplotype_length" : 1,
+    "genotyping-max-iterations" : 10,
+    "genotyping-max-banddepth" : 4,
+    "min_mapping_quality" : 1,
+    "min_base_quality" : 0,
+    "min_var_depth" : 4,
+    "min_depth" : 9,
+    "bcftools_filter_snps" : "((SAF>=2 & SAR>=2) | AF >= 0.9) & INFO/QA>=80",
+    "bcftools_filter_complex" : "((SAF>=2 & SAR>=2) | AF >= 0.9) & INFO/QA>=80",
+    "bcftools_filter_minor" : "AF >= 0.05 & ( (SAF/(SAF+SAR))>=((SRF/(SRF+SRR))-0.49) & (SAF/(SAF+SAR))<=((SRF/(SRF+SRR))+0.49) & (SAF/(SAF+SAR))>=0.01 & (SAF/(SAF+SAR))<=0.99 ) & SAF>=2 & SAR>=2 & INFO/QA>=80"
+    },
+
+"genbed_bedtools" : {
+    "todo" : 1
+    },
+
+"genfasta_consensus" : {
+    "todo" : 1,
+    "min_depth" : 10,
+    "mask" : "/path/to/seqmet/db/ref/ncov/MN908947/artic_v4.1/MN908947_mask.bed"
+    },
+
+"seek_coinf" : {
+    "todo" : 1,
+    "min_freq" : 0.05,
+    "min_depth" : 100,
+    "min_var" : 6,
+    "bed" : [
+        "/path/to/seqmet/db/ref/ncov/MN908947/artic_v4.1/MN908947_amplicon.bed"
+    ],
+    "vcf" : [
+        ["MN908947", "/path/to/seqmet/db/ref/ncov/MN908947/vcf/"]
+    ]
+},
+
+"merge_depth" : {
+    "todo" : 1
+},
+
+"merge_coverage" : {
+    "todo" : 1
+},
+
+"merge_consensus" : {
+    "todo" : 1
+},
+
+"merge_covsummary" : {
+    "todo" : 1
+},
+
+"merge_poscsummary" : {
+    "todo" : 1
+},
+
+"merge_coinfsummary" : {
+    "todo" : 1
+},
+
+"gentsv_summary" : {
+    "todo" : 1
+},
+
+"gentsv_nextclade" : {
+    "todo" : 1,
+    "dataset" : [
+        ["MN908947", "/path/to/seqmet/db/nextclade/sars-cov-2_220118/"]
+    ]
+},
+
+"gentsv_pangolin" : {
+    "todo" : 1
+}
+
+}
