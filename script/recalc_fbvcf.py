@@ -92,7 +92,9 @@ for i in range(len(vcf)):
         vcf[i][7] = ';'.join(new_field)
         continue
     
-    if truncate(float(int(vcf_info_value[5])) / float(vcf_info_value[7]), 3) < truncate(minfreq, 3):
+    if float(vcf_info_value[7]) <= 0:
+        vcf_info_value[3] = truncate(0, 3)
+    elif truncate(float(int(vcf_info_value[5])) / float(vcf_info_value[7]), 3) < truncate(minfreq, 3):
         vcf_info_value[3] = truncate(minfreq, 3)
     elif truncate(float(int(vcf_info_value[5])) / float(vcf_info_value[7]), 3) > truncate(maxfreq, 3):
         vcf_info_value[3] = truncate(maxfreq, 3)

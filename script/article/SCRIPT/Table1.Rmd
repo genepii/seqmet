@@ -1,0 +1,68 @@
+---
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+########################################################################################################
+#' Detection and prevalence of SARS-CoV-2 co-infections during the Omicron variant circulation, France, December 2021 - February 2022
+
+#' Antonin Bal, Bruno Simon, Gregory Destras, Richard Chalvignac, Quentin Semanas, Antoine Oblette, Gregory Queromes, Remi Fanget, 
+#' Hadrien Regue1, Florence Morfin, Martine Valette, Bruno Lina, Laurence Josset 
+#' 
+#' (c) 2022 Laurence Josset, <laurence.josset(at)univ-lyon1.fr>
+#' 
+#' MIT LICENSE
+
+########################################################################################################
+
+---
+  title: "SARS-CoV-2 co-infections"
+output:
+  word_document: default
+---
+  
+```{r echo=FALSE,results="asis"}
+
+###Clinical_table###
+
+library(dplyr)
+library(qwraps2)
+library(ggplot2)
+options(qwraps2_markup="markdown")
+setwd("~")
+filecoinf="SOURCE_ANONYMISED_METADATA.txt"
+read.delim(filecoinf)->filecoinf
+
+filecoinf$Age<-as.numeric(filecoinf$Age)
+Total<-filecoinf[!is.na(filecoinf$VOC)&filecoinf$FIRSTSAMPLE==1,]
+
+
+our_summary<-list(
+  "Age"=list("n; median (IQR)"=~median_iqr(Age,na_rm=TRUE)),
+  "Sex"=list(
+    "Male n (%)"=~qwraps2::n_perc(Sex=="M",na_rm=TRUE)),
+  "Severe"=list(
+    "n (%)"=~qwraps2::n_perc(ICU==1,na_rm=TRUE)))
+
+
+cbind(qwraps2::summary_table(dplyr::group_by(Total,interaction(VOC,HOSPITALIZED)),our_summary),qwraps2::summary_table(Total,our_summary))
+
+
+
+###for binomial regression###
+
+filereg<-Total[!is.na(Total$VOC)&Total$HOSPITALIZED==1,]
+cut(filereg$Age,c(0,20,40,65,120))->filereg$Age2
+
+library(gtsummary)
+library(broom.helpers)
+library(labelled)
+library(GGally)
+reg<-glm(factor(ICU)~factor(VOC,levels=c("Omicron","Delta","Delta/Omicron","Omicron/Omicron"))+Sex+Age2,data=filereg[(filereg$VOC=="Delta"|filereg$VOC=="Omicron"|filereg$VOC=="Delta/Omicron"|filereg$VOC=="Omicron/Omicron"),],family = binomial(logit))
+plotreg<-ggcoef_model(reg,exponentiate=TRUE)
+plotreg$data$var_label<-c("VOC","VOC","VOC","VOC","Sex","Sex","Age","Age","Age","Age")
+plotreg
+
+
+```

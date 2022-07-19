@@ -153,6 +153,7 @@
 
 "callvar_freebayes" : {
     "todo" : 1,
+    "variant-input" : "/path/to/seqmet/db/ref/ncov/MN908947/vcf_do_covariant_profile.vcf",
     "theta" : 0.001,
     "ploidy" : 1,
     "use-best-n-alleles" : 2,

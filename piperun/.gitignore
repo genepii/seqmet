@@ -3,9 +3,5 @@
 # Except these files
 !.gitignore
 !launch_piperun.sh
-!000000_seqmet_varcall_hsv12/
-!000000_seqmet_varcall_hsv12/params_01.json
-!000000_seqmet_varcall_fluabv/
-!000000_seqmet_varcall_fluabv/params_01.json
 !000000_seqmet_varcall_ncov/
 !000000_seqmet_varcall_ncov/params_01.json
